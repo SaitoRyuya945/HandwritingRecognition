@@ -1,1 +1,4 @@
 # HandwritingRecognition
+## member
+### Yamao
+### Sai
