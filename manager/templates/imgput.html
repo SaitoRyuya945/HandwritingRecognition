@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    {% block title %}{{ page_name }}{% endblock title %}
+    {#6/15解消 block content内に記述 外部からjsファイルを読み込んでいるつもりだが読み込めていない？#}
+</head>
+<body>
+{% block content %}
+    <script type="text/javascript" src="{% static 'manager/js/imgput_js.js' %}"></script>
+    {#  この↓views.pyで書いたcontextから値が渡される {{ タグ名 }}これ大事 }}  #}
+    <h1>{{ page_name }}</h1>
+
+    <p>タイムスタンプ：{{ date }}</p>
+<button type="button" onclick="ChangeParaToDate()">クリックして下さい
+</button>
+<p id="eid_date">外部ファイルでコンテンツの内容を変更します。</p>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}    {# なんか大事な奴 #}
+    {{ form.as_p }}
+    {{ form.media }}
+    <img id="preview">
+    <canvas
+        id="draw-area"
+        width="420px"
+        height="420px"
+        style="border: 2px solid #000000;"></canvas>
+        <!-- 色を選択できるカラーパレットを用意する。 -->
+        <span id="color-palette"></span>
+    <div>
+    <button id="black-button">鉛筆</button>
+    </div>
+    <div>
+    <button id="eraser-button">消しゴム</button>
+    </div>
+    <div>
+    <button id="clear-button">全消し</button>
+    </div>
+        <br>
+    <p><input type="submit" value="送信する"></p>
+    <p><input type="reset" value="取消する"></p>
+
+    <textarea id="message" name="message">{{ message }}</textarea>
+  </form>
+
+{% endblock content %}
+</body>
+</html>
