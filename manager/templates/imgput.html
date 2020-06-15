@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    {% block title %}{{ page_name }}{% endblock title %}</head>
+<body>
+{% block content %}
+    {#  この↓views.pyで書いたcontextから値が渡される {{ タグ名 }}これ大事 }}  #}
+    <h1>{{ page_name }}</h1>
+
+    <p>タイムスタンプ：{{ date }}</p>
+{% endblock content %}
+</body>
+</html>

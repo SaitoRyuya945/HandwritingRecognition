@@ -4,6 +4,7 @@ from django.db import models
 # 作成したデータベースモデルを反映させるにはadmin.pyでregisterの追加をする必要がある
 # また、migrateが必要
 
+
 class Book(models.Model):
     """書籍"""
     name = models.CharField('書籍名', max_length=255)
