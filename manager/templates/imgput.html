@@ -22,6 +22,23 @@
     {{ form.as_p }}
     {{ form.media }}
     <img id="preview">
+    <canvas
+        id="draw-area"
+        width="420px"
+        height="420px"
+        style="border: 2px solid #000000;"></canvas>
+        <!-- 色を選択できるカラーパレットを用意する。 -->
+        <span id="color-palette"></span>
+    <div>
+    <button id="black-button">鉛筆</button>
+    </div>
+    <div>
+    <button id="eraser-button">消しゴム</button>
+    </div>
+    <div>
+    <button id="clear-button">全消し</button>
+    </div>
+        <br>
     <p><input type="submit" value="送信する"></p>
     <p><input type="reset" value="取消する"></p>
 

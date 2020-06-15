@@ -3,6 +3,9 @@
 (公式)https://docs.djangoproject.com/ja/3.0/intro/tutorial01/
 (Qiita)https://qiita.com/gragragrao/items/373057783ba8856124f3
 (Qiita)https://qiita.com/kaki_k/items/7b178ad39394a031b50d
+
+(外部ファイル読み込み)https://qiita.com/t-iguchi/items/20dc31d5e004d7145634
+
 ### 必要なパッケージ
  
 ```
