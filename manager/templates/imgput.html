@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     {% block title %}{{ page_name }}{% endblock title %}
     {#6/15解消 block content内に記述 外部からjsファイルを読み込んでいるつもりだが読み込めていない？#}
+    <script type="text/css" src="{% static 'manager/css/imgput_css.css' %}"></script>
+    <script type="text/css" src="{% static 'manager/css/sb-admin-2.min.css' %}"></script>
+
     {% block header %}
     {% endblock %}
 </head>
@@ -23,37 +26,53 @@
 <p id="eid_date">外部ファイルでコンテンツの内容を変更します。</p>
     <form id="form" method="POST" enctype="multipart/form-data" action="/manager/HandRecognize/">
         {% csrf_token %}    {# なんか大事な奴 #}
-    {{ form.as_p }}
-    {{ form.media }}
+{#    ファイルアップロード時に使える{{ form.as_p }}#}
+{#    {{ form.media }}#}
 {#    <input type="hidden" name="imagedata" value="">#}
     <canvas
         id="draw-area"
         width="420px"
         height="420px"
-        style="border: 2px solid #000000;"></canvas>
+        style="border: 2px solid #000000;">
+    </canvas>
+
         <!-- 色を選択できるカラーパレットを用意する。 -->
-        <span id="color-palette"></span>
+{#        <span id="color-palette"></span>#}
     <div>
-    <input type="button" id="black-button" value="鉛筆">
-    <input type="button" id="eraser-button" value="消しゴム">
-    <input type="button" id="clear-button" value="全消し">
+{#    <input class="btn btn-primary rounded-pill" data-toggle="button" aria-pressed="false" type="button" id="black-button" value="鉛筆">#}
+{#    <input class="btn btn-success rounded-pill" data-toggle="button" aria-pressed="false" type="button" id="eraser-button" value="修正">#}
     </div>
+{#        #}
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-primary active">
+    <input type="radio" name="options" id="black-button" checked> 鉛筆
+  </label>
+  <label class="btn btn-primary">
+    <input type="radio" name="options" id="eraser-button"> 消しゴム
+  </label>
+    <input class="btn btn-warning btn-circle" type="button" id="clear-button" value="全消し">
 
+</div>
         <br>
-    <img id="preview">
 
-    <p><input type="submit" value="送信する"></p>
-    <p><input type="reset" value="取消する"></p>
-    <input type="button" id="tobase64btn" onclick="canvas_to_base64()" value="Base64変換" />
+
+{#    <p><input type="submit" value="送信する"></p>#}
+{#    <p><input type="reset" value="取消する"></p>#}
+
+    <input class="btn btn-danger btn-" type="button" id="tobase64btn" onclick="canvas_to_base64()" value="キャンバス画像送信" />
     <textarea id="message" name="message">{{ message }}</textarea>
 
   </form>
         <div class="form-group row my-4">
 {#            {{ form.areaone|add_class:"form-control" }}#}
         </div>
+    <img id="preview">
+<p id="string">デフォルトの文章</p>
 {#<input type="button" id="btn1" value="ボタン">#}
 
 <script type="text/javascript" src="{% static "manager/js/imgput_js.js" %}"></script>
+<script type="text/javascript" src="{% static "manager/js/sb-admin-2.min.js" %}"></script>
+
 {% endblock %}
 
 </body>

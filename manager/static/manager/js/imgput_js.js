@@ -46,12 +46,12 @@ function canvas_to_base64() {
             contentType: false,
             processData: false,
             success: function (data, dataType) {
-                $("message").text("data");
+                $("#string").text(data);
                 //非同期で通信成功時に読み出される [200 OK 時]
                 console.log('Success', data);
               },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("message").text("data");
+                $("#string").text(textStatus);
                 //非同期で通信失敗時に読み出される
                 console.log('Error : ' + errorThrown);
 
@@ -99,6 +99,13 @@ function csrfSafeMethod(method) {
 //     }
 // };
 
+//キャンバスの背景色を白にしている
+//そのままだと無地になる
+canvas = document.getElementById("draw-area");
+ctx = canvas.getContext("2d");
+ctx.fillStyle = "#FFFFFF";//筆に白い絵の具をつけて
+ctx.fillRect(0,0,420,420);//四角を描く
+//-----------------------------------------------
 
 // ページの読み込みが完了したらコールバック関数が呼ばれる
 // ※コールバック: 第2引数の無名関数(=関数名が省略された関数)
@@ -128,7 +135,7 @@ window.addEventListener('load', () => {
     // MDN CanvasRenderingContext2D: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin
     context.lineCap = 'round'; // 丸みを帯びた線にする
     context.lineJoin = 'round'; // 丸みを帯びた線にする
-    context.lineWidth = 5; // 線の太さ
+    context.lineWidth = 20; // 線の太さ
     context.strokeStyle = currentColor; // 線の色
 
     // 書き始めは lastPosition.x, lastPosition.y の値はnullとなっているため、
@@ -193,6 +200,7 @@ window.addEventListener('load', () => {
     eraserButton.addEventListener('click', () => {
       // 消しゴムと同等の機能を実装したい場合は現在選択している線の色を
       // 白(#FFFFFF)に変更するだけでよい
+      context.lineWidth = 50; // 線の太さ
       currentColor = '#FFFFFF';
     });
 
@@ -201,6 +209,7 @@ window.addEventListener('load', () => {
     blackButton.addEventListener('click', () => {
       // 消しゴムと同等の機能を実装したい場合は現在選択している線の色を
       // 白(#FFFFFF)に変更するだけでよい
+      context.lineWidth = 150; // 線の太さ
       currentColor = '#000000';
     });
 
