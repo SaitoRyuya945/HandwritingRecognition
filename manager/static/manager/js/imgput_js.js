@@ -14,6 +14,88 @@ document.getElementById('eid_date').innerHTML = Date();
 }
 
 
+// // canvas要素を取得
+// var canvas = document.getElementById( "draw-area" ) ;
+// // img要素を取得
+ var image = document.getElementById( "preview" ) ;
+// キャンバスのデータをpngに変換する
+function canvas_to_base64() {
+    var canvas = document.getElementById("draw-area") ;
+	var image_data = canvas.toDataURL("image/png");
+
+  // 描画内容をデータURIに変換する (引数なしだとPNG)
+	var dataURI = canvas.toDataURL() ;
+	image.src = dataURI;
+
+	// image_data = image_data.replace(/^.*,/, '');
+	// var form = document.form;
+	// form.imagedata.value = image_data;
+	// form.submit();
+      // POSTでアップロード
+    var fData = new FormData();
+    fData.append('image', dataURI);
+    csrfSetting();
+            // ajax送信
+        $.ajax({
+          //画像処理サーバーに返す場合
+          url: 'http://127.0.0.1:8000/manager/HandRecognize/',
+          type: 'POST',
+          data: fData,
+          contentType: false,
+          processData: false,
+          success: function (data, dataType) {
+            //非同期で通信成功時に読み出される [200 OK 時]
+            console.log('Success', data);
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //非同期で通信失敗時に読み出される
+            console.log('Error : ' + errorThrown);
+          }
+        });
+    // $.post( '/manager/HandRecognize/', {'image':dataURI} );
+
+}
+//
+// 2 csrfを取得、設定する関数
+function getCookie(key) {
+    var cookies = document.cookie.split(';');
+    for (var _i = 0, cookies_1 = cookies; _i < cookies_1.length; _i++) {
+        var cookie = cookies_1[_i];
+        var cookiesArray = cookie.split('=');
+        if (cookiesArray[0].trim() == key.trim()) {
+            return cookiesArray[1]; // (key[0],value[1])
+        }
+    }
+    return '';
+}
+function csrfSetting() {
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+}
+
+// 3 POST以外は受け付けないようにする関数
+function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+//
+
+// var request = {
+//     url: 'http://localhost:4567/base64',
+//     method: 'POST',
+//     params: {
+//         image: base64.replace(/^.*,/, '')
+//     },
+//     success: function (response) {
+//         console.log(response.responseText);
+//     }
+// };
+
+
 // ページの読み込みが完了したらコールバック関数が呼ばれる
 // ※コールバック: 第2引数の無名関数(=関数名が省略された関数)
 window.addEventListener('load', () => {
@@ -124,8 +206,7 @@ window.addEventListener('load', () => {
     canvas.addEventListener('mousemove', (event) => {
       // eventの中の値を見たい場合は以下のようにconsole.log(event)で、
       // デベロッパーツールのコンソールに出力させると良い
-      // console.log(event);
-
+      console.log(event);
       draw(event.layerX, event.layerY);
     });
   }

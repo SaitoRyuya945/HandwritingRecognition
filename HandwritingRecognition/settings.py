@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',   # 静的ファイルの管理フレームワーク
     'manager.apps.ManagerConfig',   # managerアプリケーションの追加
     'bootstrap4',                   # django-bootstrap4の追加
+    'widget_tweaks',                # django-wigget-tweaks
 ]
 
 MIDDLEWARE = [

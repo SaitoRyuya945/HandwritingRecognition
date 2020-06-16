@@ -1,16 +1,18 @@
 ## Djangoのプロジェクトのセットアップ
 ### 参考資料
-(公式)https://docs.djangoproject.com/ja/3.0/intro/tutorial01/
-(Qiita)https://qiita.com/gragragrao/items/373057783ba8856124f3
-(Qiita)https://qiita.com/kaki_k/items/7b178ad39394a031b50d
-
-(外部ファイル読み込み)https://qiita.com/t-iguchi/items/20dc31d5e004d7145634
-
+- (公式)https://docs.djangoproject.com/ja/3.0/intro/tutorial01/
+- (Qiita)https://qiita.com/gragragrao/items/373057783ba8856124f3
+- (Qiita)https://qiita.com/kaki_k/items/7b178ad39394a031b50d
+- (js外部ファイル読み込み)https://qiita.com/t-iguchi/items/20dc31d5e004d7145634
+- (jsキャンバス画像変換)https://syncer.jp/javascript-reference/canvas-todataurl
+- (jQueryのpostについて)https://javascript.programmer-reference.com/jquery-jquery-post/
+- (PythonBase64をエンコードする)http://motojapan.hateblo.jp/entry/2017/12/19/112544
 ### 必要なパッケージ
  
 ```
 pip install django
 pip install django-bootstrap4
+pip install 
 ```
 #### プロジェクトの作り方
 ワークスペースに移動し、以下のコマンドを入力する
