@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     {% block title %}{{ page_name }}{% endblock title %}
     {#6/15解消 block content内に記述 外部からjsファイルを読み込んでいるつもりだが読み込めていない？#}
+    {% block header %}
+    {% endblock %}
 </head>
 <body>
 {% block content %}
+
     <script type="text/javascript" src="{% static 'manager/js/imgput_js.js' %}"></script>
+
     {#  この↓views.pyで書いたcontextから値が渡される {{ タグ名 }}これ大事 }}  #}
     <h1>{{ page_name }}</h1>
 
@@ -17,11 +21,11 @@
 <button type="button" onclick="ChangeParaToDate()">クリックして下さい
 </button>
 <p id="eid_date">外部ファイルでコンテンツの内容を変更します。</p>
-    <form method="POST" enctype="multipart/form-data">
+    <form id="form" method="POST" enctype="multipart/form-data" action="/manager/HandRecognize/">
         {% csrf_token %}    {# なんか大事な奴 #}
     {{ form.as_p }}
     {{ form.media }}
-    <img id="preview">
+{#    <input type="hidden" name="imagedata" value="">#}
     <canvas
         id="draw-area"
         width="420px"
@@ -30,21 +34,31 @@
         <!-- 色を選択できるカラーパレットを用意する。 -->
         <span id="color-palette"></span>
     <div>
-    <button id="black-button">鉛筆</button>
+    <input type="button" id="black-button" value="鉛筆">
     </div>
     <div>
-    <button id="eraser-button">消しゴム</button>
+    <input type="button" id="eraser-button" value="消しゴム">
     </div>
     <div>
-    <button id="clear-button">全消し</button>
+    <input type="button" id="clear-button" value="全消し">
     </div>
+
         <br>
+    <img id="preview">
+
     <p><input type="submit" value="送信する"></p>
     <p><input type="reset" value="取消する"></p>
-
+    <input type="button" id="tobase64btn" onclick="canvas_to_base64()" value="Base64変換" />
     <textarea id="message" name="message">{{ message }}</textarea>
-  </form>
 
-{% endblock content %}
+  </form>
+        <div class="form-group row my-4">
+{#            {{ form.areaone|add_class:"form-control" }}#}
+        </div>
+{#<input type="button" id="btn1" value="ボタン">#}
+
+<script type="text/javascript" src="{% static "manager/js/imgput_js.js" %}"></script>
+{% endblock %}
+
 </body>
 </html>
