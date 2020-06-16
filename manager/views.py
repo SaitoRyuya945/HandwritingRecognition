@@ -27,7 +27,7 @@ class HandRecognize(TemplateView):
         context['page_name'] = "手書き文字認識マン"
         context['date'] = int(datetime.now().strftime('%Y%m%d%H%M%S'))      # 日付
         # context['form'] = forms.UploadFileForm
-        context['message'] = forms.UserForm(label_suffix=' : ')
+        # context['message'] = forms.UserForm(label_suffix=' : ')
 
         return render(self.request, self.template_name, context)
 

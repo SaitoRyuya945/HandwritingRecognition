@@ -17,7 +17,8 @@ document.getElementById('eid_date').innerHTML = Date();
 // // canvas要素を取得
 // var canvas = document.getElementById( "draw-area" ) ;
 // // img要素を取得
- var image = document.getElementById( "preview" ) ;
+var image = document.getElementById( "preview" ) ;
+var text_areas = document.getElementById("message");
 // キャンバスのデータをpngに変換する
 function canvas_to_base64() {
     var canvas = document.getElementById("draw-area") ;
@@ -31,28 +32,31 @@ function canvas_to_base64() {
 	// var form = document.form;
 	// form.imagedata.value = image_data;
 	// form.submit();
-      // POSTでアップロード
+    // POSTでアップロード
+
     var fData = new FormData();
     fData.append('image', dataURI);
     csrfSetting();
             // ajax送信
         $.ajax({
           //画像処理サーバーに返す場合
-          url: 'http://127.0.0.1:8000/manager/HandRecognize/',
-          type: 'POST',
-          data: fData,
-          contentType: false,
-          processData: false,
-          success: function (data, dataType) {
-            //非同期で通信成功時に読み出される [200 OK 時]
-            console.log('Success', data);
-          },
-          error: function (XMLHttpRequest, textStatus, errorThrown) {
-            //非同期で通信失敗時に読み出される
-            console.log('Error : ' + errorThrown);
-          }
+            url: 'http://127.0.0.1:8000/manager/HandRecognize/',
+            type: 'POST',
+            data: fData,
+            contentType: false,
+            processData: false,
+            success: function (data, dataType) {
+                $("message").text("data");
+                //非同期で通信成功時に読み出される [200 OK 時]
+                console.log('Success', data);
+              },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("message").text("data");
+                //非同期で通信失敗時に読み出される
+                console.log('Error : ' + errorThrown);
+
+            }
         });
-    // $.post( '/manager/HandRecognize/', {'image':dataURI} );
 
 }
 //
