@@ -1,3 +1,12 @@
+  var elem = document.getElementById('range');
+  var target = document.getElementById('value');
+  var rangeValue = function (elem, target) {
+    return function(evt){
+      target.innerHTML = elem.value;
+      context.lineWidth = elem.value;
+    }
+  }
+  elem.addEventListener('input', rangeValue(elem, target));
 //画像プレビュー
 function previewImage(obj)
 {
@@ -34,6 +43,9 @@ function canvas_to_base64() {
 	// form.submit();
     // POSTでアップロード
 
+    count = 0;  //アニメーション
+    start();    //アニメーション
+
     var fData = new FormData();
     fData.append('image', dataURI);
     csrfSetting();
@@ -59,7 +71,33 @@ function canvas_to_base64() {
         });
 
 }
-//
+//アニメーション
+  var INTERVAL = 30; // ms
+  var canvas = document.getElementById('draw-area');
+  var ctx = canvas.getContext('2d');
+
+  function drawFrame() {
+    // 半径 20px の円を中央に描く
+      var x = Math.random() * canvas.width;
+      var y = Math.random() * canvas.height;
+      ctx.fillStyle = randomColor();  // 塗りつぶしの色
+      ctx.fillRect(x, y, 50, 50);
+  }
+
+  function randomColor() {
+      return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
+  }
+  var count = 0;
+  function start() {
+      var id = setTimeout(function() {
+          drawFrame();
+          start();
+    }, INTERVAL);
+    count++;
+    if(count >110){ clearTimeout(id);}
+  }
+//↑アニメーション
+
 // 2 csrfを取得、設定する関数
 function getCookie(key) {
     var cookies = document.cookie.split(';');
@@ -98,21 +136,26 @@ function csrfSafeMethod(method) {
 //         console.log(response.responseText);
 //     }
 // };
-
+canvasClear()
 //キャンバスの背景色を白にしている
 //そのままだと無地になる
-canvas = document.getElementById("draw-area");
-ctx = canvas.getContext("2d");
-ctx.fillStyle = "#FFFFFF";//筆に白い絵の具をつけて
-ctx.fillRect(0,0,420,420);//四角を描く
+function canvasClear() {
+    canvas = document.getElementById("draw-area");
+    ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#FFFFFF";//筆に白い絵の具をつけて
+    ctx.fillRect(0, 0, 420, 420);//四角を描く
+}
 //-----------------------------------------------
+var context = canvas.getContext('2d');
+context.lineWidth = 15;
 
 // ページの読み込みが完了したらコールバック関数が呼ばれる
 // ※コールバック: 第2引数の無名関数(=関数名が省略された関数)
 window.addEventListener('load', () => {
   const canvas = document.querySelector('#draw-area');
   // contextを使ってcanvasに絵を書いていく
-  const context = canvas.getContext('2d');
+  // const context = canvas.getContext('2d');
+
 
   // 直前のマウスのcanvas上のx座標とy座標を記録する
   const lastPosition = { x: null, y: null };
@@ -135,7 +178,7 @@ window.addEventListener('load', () => {
     // MDN CanvasRenderingContext2D: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin
     context.lineCap = 'round'; // 丸みを帯びた線にする
     context.lineJoin = 'round'; // 丸みを帯びた線にする
-    context.lineWidth = 20; // 線の太さ
+    // context.lineWidth = 20; // 線の太さ
     context.strokeStyle = currentColor; // 線の色
 
     // 書き始めは lastPosition.x, lastPosition.y の値はnullとなっているため、
@@ -167,6 +210,7 @@ window.addEventListener('load', () => {
   // canvas上に書いた絵を全部消す
   function clear() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+    canvasClear()
   }
 
   // マウスのドラッグを開始したらisDragのフラグをtrueにしてdraw関数内で
@@ -200,7 +244,7 @@ window.addEventListener('load', () => {
     eraserButton.addEventListener('click', () => {
       // 消しゴムと同等の機能を実装したい場合は現在選択している線の色を
       // 白(#FFFFFF)に変更するだけでよい
-      context.lineWidth = 50; // 線の太さ
+      // context.lineWidth = 50; // 線の太さ
       currentColor = '#FFFFFF';
     });
 
@@ -209,7 +253,7 @@ window.addEventListener('load', () => {
     blackButton.addEventListener('click', () => {
       // 消しゴムと同等の機能を実装したい場合は現在選択している線の色を
       // 白(#FFFFFF)に変更するだけでよい
-      context.lineWidth = 150; // 線の太さ
+      // context.lineWidth = 150; // 線の太さ
       currentColor = '#000000';
     });
 

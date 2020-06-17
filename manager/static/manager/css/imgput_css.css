@@ -1,8 +1,5 @@
 
-#draw-area{
-    /*display:inline-block;*/
 
-}
 
 #preview{
     /*display:inline-block;*/
@@ -11,4 +8,19 @@
 
 #black-button{
 
+}
+/*キャンバスの位置をスマホ画像に収める*/
+#content-phone{
+    /*position: relative;*/
+}
+#phone{
+    /*all: initial;*/
+    /*position: absolute;*/
+    /*top: 1px;*/
+    /*left: 1px;*/
+}
+#draw-area{
+    /*position: absolute;*/
+    /*top: 155px;*/
+    /*left: 480px;*/
 }
