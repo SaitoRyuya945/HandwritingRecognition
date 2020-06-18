@@ -63,7 +63,7 @@ function canvas_to_base64() {
                 console.log('Success', data);
               },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#string").text(textStatus);
+                $("#string").text(errorThrown);
                 //非同期で通信失敗時に読み出される
                 console.log('Error : ' + errorThrown);
 

@@ -18,6 +18,7 @@ import PIL
 from PIL import Image
 from io import BytesIO
 
+
 class HandRecognize(TemplateView):
     template_name = "imgput.html"
 
@@ -28,6 +29,7 @@ class HandRecognize(TemplateView):
         context['date'] = int(datetime.now().strftime('%Y%m%d%H%M%S'))      # 日付
         # context['form'] = forms.UploadFileForm
         # context['message'] = forms.UserForm(label_suffix=' : ')
+        context['result'] = "予測結果が入ります"
 
         return render(self.request, self.template_name, context)
 
@@ -42,14 +44,17 @@ class HandRecognize(TemplateView):
         # context['form'] = request.POST['message']
         # context['message'] = request.POST['message']
         img_data = request.POST['image']
-        print(type(img_data))
         base64_to_image(img_data)
+
+        context['result'] = "5です"
+
         # if forms.is_valid():
         # print("ファイル")
         # handle_uploaded_file(request.FILES['image'])
         # file_obj = request.FILES['image']
         # context.update(csrf(request))
-        return render(self.request, self.template_name, context)
+        return HttpResponse(context['result'])
+        # return render(self.request, self.template_name, context)
 
 
 def base64_to_image(base_64: str):

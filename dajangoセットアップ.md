@@ -12,7 +12,7 @@
 ```
 pip install django
 pip install django-bootstrap4
-pip install 
+pip install django-wigget-tweaks
 ```
 #### プロジェクトの作り方
 ワークスペースに移動し、以下のコマンドを入力する
