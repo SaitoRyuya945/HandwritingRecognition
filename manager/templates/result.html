@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}画像予測ページ{% endblock title %}
+</head>
+<body>
+{% block content %}
+<p>レイヤー表示</p>
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    リンク式
+  </a>
+  <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    ボタン式
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <img src="{% static "manager/media/input.png" %}">
+    <table>
+        <tr><td><img src="{% static "manager/media/input.png" %}"></td><td><img src="{% static "manager/media/input.png" %}"></td><td><img src="{% static "manager/media/input.png" %}"></td></tr>
+        <tr><td><img src="{% static "manager/media/input.png" %}"></td><td><img src="{% static "manager/media/input.png" %}"></td></tr>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

@@ -18,6 +18,10 @@ import PIL
 from PIL import Image
 from io import BytesIO
 
+from .mytfkeras import static_load
+import tensorflow as tf
+from tensorflow.keras import datasets, layers, models
+
 
 class HandRecognize(TemplateView):
     template_name = "imgput.html"
@@ -30,6 +34,7 @@ class HandRecognize(TemplateView):
         # context['form'] = forms.UploadFileForm
         # context['message'] = forms.UserForm(label_suffix=' : ')
         context['result'] = "予測結果が入ります"
+        static_load
 
         return render(self.request, self.template_name, context)
 
@@ -55,6 +60,16 @@ class HandRecognize(TemplateView):
         # context.update(csrf(request))
         return HttpResponse(context['result'])
         # return render(self.request, self.template_name, context)
+
+
+class Predicted(TemplateView):
+    template_name = "result.html"
+
+    def get(self, request, *args, **kwargs):
+        """レイヤー表示ページ"""
+        context = super(Predicted, self).get_context_data(**kwargs)     # htmlにdjangoで値を渡してあげることに使う
+        return render(self.request, self.template_name, context)
+
 
 
 def base64_to_image(base_64: str):
