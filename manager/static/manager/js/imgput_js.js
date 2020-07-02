@@ -1,3 +1,6 @@
+//   $(function () {
+//   $('[data-toggle="tooltip"]').tooltip()
+// })
   var elem = document.getElementById('range');
   var target = document.getElementById('value');
   var rangeValue = function (elem, target) {

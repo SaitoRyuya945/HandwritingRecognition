@@ -50,8 +50,8 @@ class HandRecognize(TemplateView):
         # context['message'] = request.POST['message']
         img_data = request.POST['image']
         base64_to_image(img_data)
-        model_predict()
         res = predicts()
+        model_predict()
 
         context['result'] = "5です"
 
