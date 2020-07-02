@@ -18,7 +18,7 @@ import PIL
 from PIL import Image
 from io import BytesIO
 
-from .mytfkeras import static_load
+from .mytfkeras import predicts, model_predict
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 
@@ -34,7 +34,7 @@ class HandRecognize(TemplateView):
         # context['form'] = forms.UploadFileForm
         # context['message'] = forms.UserForm(label_suffix=' : ')
         context['result'] = "予測結果が入ります"
-        static_load
+        # static_load
 
         return render(self.request, self.template_name, context)
 
@@ -50,6 +50,8 @@ class HandRecognize(TemplateView):
         # context['message'] = request.POST['message']
         img_data = request.POST['image']
         base64_to_image(img_data)
+        model_predict()
+        res = predicts()
 
         context['result'] = "5です"
 
@@ -58,7 +60,7 @@ class HandRecognize(TemplateView):
         # handle_uploaded_file(request.FILES['image'])
         # file_obj = request.FILES['image']
         # context.update(csrf(request))
-        return HttpResponse(context['result'])
+        return HttpResponse("予測結果: "+str(res))
         # return render(self.request, self.template_name, context)
 
 

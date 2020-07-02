@@ -6,6 +6,9 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}画像予測ページ{% endblock title %}
+    {% block header %}
+    <link href="{% static 'manager/css/imgput_css.css' %}" rel="stylesheet">
+    {% endblock %}
 </head>
 <body>
 {% block content %}
@@ -20,10 +23,10 @@
 </p>
 <div class="collapse" id="collapseExample">
   <div class="card card-body">
-    <img src="{% static "manager/media/input.png" %}">
     <table>
-        <tr><td><img src="{% static "manager/media/input.png" %}"></td><td><img src="{% static "manager/media/input.png" %}"></td><td><img src="{% static "manager/media/input.png" %}"></td></tr>
-        <tr><td><img src="{% static "manager/media/input.png" %}"></td><td><img src="{% static "manager/media/input.png" %}"></td></tr>
+        <tr><td><img src="{% static "manager/media/input.png" %}"></td></tr>
+        <tr><td><img src="{% static "manager/media/conv2_1.png" %}"></td></tr>
+        <tr><td><img src="{% static "manager/media/conv2_2.png" %}"></td></tr>
     </table>
   </div>
 </div>
