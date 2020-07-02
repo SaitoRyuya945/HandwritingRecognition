@@ -11,4 +11,9 @@ Created 2020/06/15 20:03:11
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
+import tensorflow as tf
+from tensorflow.keras import datasets, layers, models
 
+
+def static_load():
+    s = models.load_model("manager/static/manager/deepmodel/mnistraining.h5")
