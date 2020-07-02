@@ -94,7 +94,7 @@ function canvas_to_base64() {
           start();
     }, INTERVAL);
     count++;
-    if(count >110){ clearTimeout(id);}
+    if(count >-1){ clearTimeout(id);}
   }
 //↑アニメーション
 
