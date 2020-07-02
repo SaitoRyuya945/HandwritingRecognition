@@ -16,14 +16,4 @@ from tensorflow.keras import datasets, layers, models
 
 
 def static_load():
-    # s = models.load_model("../static/manager/deepmodel/mnistraining.h5")
-    s = models.load_model("./static/manager/deepmodel/mnistraining.h5")
-
-    # a = models.load_model("static/manager/deepmodel/mnistraining.h5")
-
-
-
-
-
-
-
+    s = models.load_model("manager/static/manager/deepmodel/mnistraining.h5")
