@@ -20,7 +20,6 @@ def static_load():
 
 def model_predict():
     model = static_load()
-    model.evaluate(test_images, test_labels, verbose=2)
     w = model.layers[0].get_weights()[0]
     fig = plt.figure(figsize=(10,10))
     for i in range(64):
@@ -31,3 +30,14 @@ def model_predict():
         plt.imshow(w[:,:,0,i].reshape(3,3), cmap =
                 plt.cm.binary)
     fig.savefig("manager/static/manager/deepmodel/conv2_1.png")
+
+    w = model.layers[0].get_weights()[0]
+    fig = plt.figure(figsize=(10, 10))
+    for i in range(32):
+        plt.subplot(8, 8, i + 1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(w[:, :, 0, i].reshape(3, 3), cmap=
+        plt.cm.binary)
+    fig.savefig("manager/static/manager/deepmodel/conv2_2.png")
