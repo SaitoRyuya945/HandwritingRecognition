@@ -29,6 +29,10 @@ class HandRecognize(TemplateView):
     input_name = "input.png"
     model_name = "mnistraining.h5"
 
+    def __init__(self):
+        self.hw = TfHandWritingRecognize(self.model_name)
+        # self.hw.model_filter()
+
     def get(self, request, *args, **kwargs):
         """画像送信前ページ"""
         context = super(HandRecognize, self).get_context_data(**kwargs)     # htmlにdjangoで値を渡してあげることに使う
@@ -54,8 +58,9 @@ class HandRecognize(TemplateView):
         img_data = request.POST['image']
         base64_to_image(img_data)
         # mytfkeras
-        hw = TfHandWritingRecognize(self.model_name)
-        res = hw.hw_predict(self.input_name)
+        # hw = TfHandWritingRecognize(self.model_name)
+        # res = hw.hw_predict(self.input_name)
+        res = self.hw.hw_predict(self.input_name)
 
         context['result'] = "5です"
 

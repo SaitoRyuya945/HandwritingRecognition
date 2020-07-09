@@ -21,7 +21,25 @@ class TfHandWritingRecognize():
         self.model_filter()
 
     def model_filter(self):
-        pass
+        # w = model.layers[0].get_weights()[0]
+        fig = plt.figure(figsize=(10, 10))
+        for i in range(64):
+            plt.subplot(8, 8, i + 1)
+            plt.xticks([])
+            plt.yticks([])
+            plt.grid(False)
+            plt.imshow(self.w1[:, :, 0, i].reshape(3, 3), cmap=plt.cm.binary)
+        fig.savefig("manager/static/manager/media/conv2_1.png")
+        plt.clf()
+        # w = model.layers[2].get_weights()[0]
+        fig = plt.figure(figsize=(10, 10))
+        for i in range(32):
+            plt.subplot(8, 8, i + 1)
+            plt.xticks([])
+            plt.yticks([])
+            plt.grid(False)
+            plt.imshow(self.w2[:, :, 0, i].reshape(3, 3), cmap=plt.cm.binary)
+        fig.savefig("manager/static/manager/media/conv2_2.png")
 
     def hw_predict(self, img_name):
         Xt = []
@@ -38,7 +56,6 @@ class TfHandWritingRecognize():
         test_predicts = np.argmax(test_predicts, axis=1)
         # print('結果：', test_predicts)
         return test_predicts[0]
-
 
 
 #モデルのフィルターの種類を表示している
