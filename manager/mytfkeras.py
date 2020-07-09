@@ -61,6 +61,13 @@ class TfHandWritingRecognize():
 #モデルのフィルターの種類を表示している
 def model_predict():
     # model = static_load()
+
+def static_load():
+    s = models.load_model("manager/static/manager/deepmodel/mnistraining.h5")
+    return s
+
+def model_predict():
+    model = static_load()
     w = model.layers[0].get_weights()[0]
     fig = plt.figure(figsize=(10,10))
     for i in range(64):
@@ -72,6 +79,11 @@ def model_predict():
     fig.savefig("manager/static/manager/media/conv2_1.png")
     plt.clf()
     w = model.layers[2].get_weights()[0]
+        plt.imshow(w[:,:,0,i].reshape(3,3), cmap =
+                plt.cm.binary)
+    fig.savefig("manager/static/manager/deepmodel/conv2_1.png")
+
+    w = model.layers[0].get_weights()[0]
     fig = plt.figure(figsize=(10, 10))
     for i in range(32):
         plt.subplot(8, 8, i + 1)
@@ -80,20 +92,4 @@ def model_predict():
         plt.grid(False)
         plt.imshow(w[:, :, 0, i].reshape(3, 3), cmap=plt.cm.binary)
     fig.savefig("manager/static/manager/media/conv2_2.png")
-
-
-# def predicts():
-#     Xt = []
-#     img = load_img("manager/static/manager/media/input.png", grayscale=True, target_size=(28, 28))
-#     img = ImageOps.invert(img)
-#     img = img_to_array(img)
-#     img.shape
-#     print(img.shape)
-#     Xt.append(img)
-#     Xt = np.array(Xt) / 255
-#     # plt.imshow(img)
-#     # print(img.shape, Xt.shape)
-#     test_predicts = model.predict(Xt)
-#     test_predicts = np.argmax(test_predicts, axis=1)
-#     # print('結果：', test_predicts)
-#     return test_predicts[0]
+    
