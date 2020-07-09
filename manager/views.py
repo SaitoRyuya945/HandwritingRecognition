@@ -18,13 +18,20 @@ import PIL
 from PIL import Image
 from io import BytesIO
 
-from .mytfkeras import predicts, model_predict
+# from .mytfkeras import predicts, model_predict
+from .mytfkeras import TfHandWritingRecognize
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 
 
 class HandRecognize(TemplateView):
     template_name = "imgput.html"
+    input_name = "input.png"
+    model_name = "mnistraining.h5"
+
+    def __init__(self):
+        self.hw = TfHandWritingRecognize(self.model_name)
+        # self.hw.model_filter()
 
     def get(self, request, *args, **kwargs):
         """画像送信前ページ"""
@@ -50,8 +57,10 @@ class HandRecognize(TemplateView):
         # context['message'] = request.POST['message']
         img_data = request.POST['image']
         base64_to_image(img_data)
-        model_predict()
-        res = predicts()
+        # mytfkeras
+        # hw = TfHandWritingRecognize(self.model_name)
+        # res = hw.hw_predict(self.input_name)
+        res = self.hw.hw_predict(self.input_name)
 
         context['result'] = "5です"
 

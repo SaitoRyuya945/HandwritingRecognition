@@ -1,11 +1,11 @@
 
-#string{
-    border: 4px double #9966ff;
-    font-size:200%;		/* フォントサイズを95%にする */
-	font-family: "ＭＳ ゴシック",sans-serif;	/* フォントの種類をゴシック系にする */
-	line-height:1.5;	/* 行の高さを1.5倍にする */
-	color:#333333;		/* 文字色を濃い目のグレーにする */
-}
+/*#string{*/
+/*    !*border: 4px double #ec3434;*!*/
+/*    font-size:200%;		!* フォントサイズを95%にする *!*/
+/*	!*font-family: "ＭＳ ゴシック",sans-serif;	!* フォントの種類をゴシック系にする *!*!*/
+/*	line-height:1.5;	!* 行の高さを1.5倍にする *!*/
+/*	!*color:#333333;		!* 文字色を濃い目のグレーにする *!*!*/
+/*}*/
 
 #preview{
     /*display:inline-block;*/
