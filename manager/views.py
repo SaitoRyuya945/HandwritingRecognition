@@ -20,6 +20,7 @@ from io import BytesIO
 
 # from .mytfkeras import predicts, model_predict
 from .mytfkeras import TfHandWritingRecognize
+from .mytfkeras import Tf49HandWritingRecognize
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models
 
@@ -28,9 +29,12 @@ class HandRecognize(TemplateView):
     template_name = "imgput.html"
     input_name = "input.png"
     model_name = "mnistraining.h5"
+    jp49model_name = "k49_ac09958.h5"
 
     def __init__(self):
         self.hw = TfHandWritingRecognize(self.model_name)
+        self.jp49 = Tf49HandWritingRecognize(self.jp49model_name)
+        self.res = 99
         # self.hw.model_filter()
 
     def get(self, request, *args, **kwargs):
@@ -51,25 +55,27 @@ class HandRecognize(TemplateView):
         context = super(HandRecognize, self).get_context_data(**kwargs)     # htmlにdjangoで値を渡してあげることに使う
         context['page_name'] = "手書き文字認識マン"
         context['date'] = int(datetime.now().strftime('%Y%m%d%H%M%S'))      # 日付
-        # context['form'] = forms.UploadFileForm
-        # print(request.POST['areaone'])
-        # context['form'] = request.POST['message']
-        # context['message'] = request.POST['message']
         img_data = request.POST['image']
+        mode = request.POST['mode']
         base64_to_image(img_data)
-        # mytfkeras
-        # hw = TfHandWritingRecognize(self.model_name)
-        # res = hw.hw_predict(self.input_name)
-        res = self.hw.hw_predict(self.input_name)
+        print(mode)
+
+        # 手書き認識処理
+        # mode=0の時は数字予測,1の時はひらがな予測
+        if mode == "0":
+            self.res = self.hw.hw_predict(self.input_name)
+            self.res = str(self.res)
+            print(self.res)
+
+        else:
+            self.res = self.jp49.hw_predict(self.input_name)
+            print(self.res)
+            self.res = self.jp49.predictTochar(self.res)
+            print(self.res)
 
         context['result'] = "5です"
 
-        # if forms.is_valid():
-        # print("ファイル")
-        # handle_uploaded_file(request.FILES['image'])
-        # file_obj = request.FILES['image']
-        # context.update(csrf(request))
-        return HttpResponse("予測結果: "+str(res))
+        return HttpResponse("予測結果: "+self.res)
         # return render(self.request, self.template_name, context)
 
 

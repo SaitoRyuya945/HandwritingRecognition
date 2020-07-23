@@ -50,6 +50,46 @@ function canvas_to_base64() {
     start();    //アニメーション
 
     var fData = new FormData();
+
+    fData.append('mode', "0");
+    fData.append('image', dataURI);
+    csrfSetting();
+            // ajax送信
+        $.ajax({
+          //画像処理サーバーに返す場合
+            url: 'http://127.0.0.1:8000/manager/HandRecognize/',
+            type: 'POST',
+            data: fData,
+            contentType: false,
+            processData: false,
+            success: function (data, dataType) {
+                $("#string").text(data);
+                //非同期で通信成功時に読み出される [200 OK 時]
+                console.log('Success', data);
+              },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#string").text(errorThrown);
+                //非同期で通信失敗時に読み出される
+                console.log('Error : ' + errorThrown);
+
+            }
+        });
+}
+
+function canvas_to_Hiragana() {
+    var canvas = document.getElementById("draw-area") ;
+	var image_data = canvas.toDataURL("image/png");
+
+  // 描画内容をデータURIに変換する (引数なしだとPNG)
+	var dataURI = canvas.toDataURL() ;
+	image.src = dataURI;
+
+    count = 0;  //アニメーション
+    start();    //アニメーション
+
+    var fData = new FormData();
+
+    fData.append('mode', "1");
     fData.append('image', dataURI);
     csrfSetting();
             // ajax送信
@@ -74,6 +114,8 @@ function canvas_to_base64() {
         });
 
 }
+
+
 //アニメーション
   var INTERVAL = 30; // ms
   var canvas = document.getElementById('draw-area');
