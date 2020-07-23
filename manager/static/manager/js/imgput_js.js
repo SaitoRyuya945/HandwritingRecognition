@@ -50,6 +50,8 @@ function canvas_to_base64() {
     start();    //アニメーション
 
     var fData = new FormData();
+
+    fData.append('mode', "123456");
     fData.append('image', dataURI);
     csrfSetting();
             // ajax送信
